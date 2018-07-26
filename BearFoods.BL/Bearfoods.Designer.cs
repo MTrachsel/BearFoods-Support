@@ -97,6 +97,15 @@ namespace BearFoods.BL {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BearFoods.BL.Vorlagen.Vorlage_Logo.docx.
+        /// </summary>
+        internal static string LogoPath {
+            get {
+                return ResourceManager.GetString("LogoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pizza.
         /// </summary>
         internal static string Pizza {

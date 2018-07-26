@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Vorlagen\Vorlage_Lieferschein.docx" />
+    <None Remove="Vorlagen\Vorlage_Logo.docx" />
     <None Remove="Vorlagen\Vorlage_Rechnung.docx" />
   </ItemGroup>
 
@@ -13,6 +14,7 @@
     <EmbeddedResource Include="Vorlagen\Vorlage_Lieferschein.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vorlagen\Vorlage_Logo.docx" />
     <EmbeddedResource Include="Vorlagen\Vorlage_Rechnung.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

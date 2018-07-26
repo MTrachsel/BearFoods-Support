@@ -129,6 +129,9 @@
   <data name="LieferscheinPath" xml:space="preserve">
     <value>BearFoods.BL.Vorlagen.Vorlage_Lieferschein.docx</value>
   </data>
+  <data name="LogoPath" xml:space="preserve">
+    <value>BearFoods.BL.Vorlagen.Vorlage_Logo.docx</value>
+  </data>
   <data name="Pizza" xml:space="preserve">
     <value>Pizza</value>
   </data>
