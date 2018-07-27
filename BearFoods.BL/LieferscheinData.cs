@@ -16,6 +16,8 @@ namespace BearFoods.BL
         [Display(Name = "Adresszeile 2")]
         public string AdressZeile2 { get; set; }
         [Display(Name = "Lieferdatum")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime LieferDatum { get; set; }
         [Display(Name = "Bär-BQ Sauce")]
         public int MengeBBQ { get; set; }
