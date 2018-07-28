@@ -15,8 +15,12 @@ namespace BearFoods.BL
         [Display(Name = "Rechnungsnummer")]
         public string RechnungsNummer { get; set; }
         [Display(Name = "Rechnungsdatum")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RechnungsDatum { get; set; }
         [Display(Name = "Lieferdatum")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime LieferDatum { get; set; }
         [Display(Name = "Bär-BQ Sauce")]
         public int MengeBBQ { get; set; }
