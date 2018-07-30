@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace BearFoods.BL.Services
 {
     public class LogoService : ILogoService
     {
-        XDocument ILogoService.Create(LogoData data)
+        public DocX Create(LogoData data)
         {
             return PopulateVorlageWithRechnungData(data);
         }
 
-        private static XDocument PopulateVorlageWithRechnungData(LogoData data)
+        private static DocX PopulateVorlageWithRechnungData(LogoData data)
         {
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(Bearfoods.LogoPath);
 
@@ -24,19 +25,18 @@ namespace BearFoods.BL.Services
             xDoc = ReplaceBatch(data, xDoc);
             xDoc = ReplaceDate(data, xDoc);           
 
-            return xDoc;
+            return document;
         }
 
         private static XDocument ReplaceBatch(LogoData data, XDocument xDoc)
         {
-            List<XElement> result = xDoc.Descendants("v")
-                            .Where(x => x.Attribute("string")
-                                .Value == "Batch 2").ToList();
-
+            List<XElement> result = xDoc.Descendants("{urn:schemas-microsoft-com:vml}textpath")
+                            .Where(x => x.Attribute("string") != null 
+                                   && x.Attribute("string").Value == Bearfoods.Batch).ToList();
 
             foreach (var batch in result)
             {
-                batch.Value = "Batch " + data.BatchNr;
+                batch.LastAttribute.Value = "Batch " + data.BatchNr;
             }
 
             return xDoc;
@@ -44,14 +44,13 @@ namespace BearFoods.BL.Services
 
         private static XDocument ReplaceDate(LogoData data, XDocument xDoc)
         {
-            List<XElement> result = xDoc.Descendants("v")
-                            .Where(x => x.Attribute("string")
-                                .Value == "23.07.2018").ToList();
-
-
+            List<XElement> result = xDoc.Descendants("{urn:schemas-microsoft-com:vml}textpath")
+                            .Where(x => x.Attribute("string") != null 
+                                   && x.Attribute("string").Value == Bearfoods.Date).ToList();
+            
             foreach (var batch in result)
             {
-                batch.Value = data.Production.ToShortDateString();
+                batch.LastAttribute.Value = data.Production.ToShortDateString();
             }
 
             return xDoc;

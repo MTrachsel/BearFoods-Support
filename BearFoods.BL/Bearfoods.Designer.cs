@@ -61,6 +61,15 @@ namespace BearFoods.BL {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Batch 2.
+        /// </summary>
+        internal static string Batch {
+            get {
+                return ResourceManager.GetString("Batch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bär-BQ.
         /// </summary>
         internal static string BBQ {
@@ -75,6 +84,15 @@ namespace BearFoods.BL {
         internal static string ContentTypeWord {
             get {
                 return ResourceManager.GetString("ContentTypeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 23.07.2018.
+        /// </summary>
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         

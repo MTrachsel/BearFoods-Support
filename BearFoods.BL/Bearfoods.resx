@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Batch" xml:space="preserve">
+    <value>Batch 2</value>
+  </data>
   <data name="BBQ" xml:space="preserve">
     <value>Bär-BQ</value>
   </data>
   <data name="ContentTypeWord" xml:space="preserve">
     <value>application/vnd.openxmlformats-officedocument.wordprocessingml.document</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>23.07.2018</value>
   </data>
   <data name="Jus" xml:space="preserve">
     <value>Braten</value>

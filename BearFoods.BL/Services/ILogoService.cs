@@ -5,6 +5,6 @@ namespace BearFoods.BL.Services
 {
     public interface ILogoService
     {
-        XDocument Create(LogoData data);
+        DocX Create(LogoData data);
     }
 }

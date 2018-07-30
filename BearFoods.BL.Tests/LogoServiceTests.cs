@@ -30,8 +30,8 @@ namespace BearFoods.BL.Tests
             };
 
             // Act
-            XDocument document = logo.Create(data);
-            document.Save(FILE_NAME);
+            DocX document = logo.Create(data);
+            document.SaveAs(FILE_NAME);
 
             // Assert
             Assert.IsNotNull(document);
