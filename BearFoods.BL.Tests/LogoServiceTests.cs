@@ -1,10 +1,9 @@
 using BearFoods.BL.Services;
+using DocumentFormat.OpenXml.Packaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Novacode;
 using System;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace BearFoods.BL.Tests
 {
@@ -12,12 +11,12 @@ namespace BearFoods.BL.Tests
     public class LogoServiceTests
     {
         private const string FILE_NAME = "BearFoods.BL.Logo.docx";
-        private const string FILE_NAME2 = "BearFoods.BL.Logo2.docx";
+        private const string BATCH_3 = "Batch 3";
+
         [TestInitialize]
         public void Initialize()
         {
             if (File.Exists(FILE_NAME)) File.Delete(FILE_NAME);
-            if (File.Exists(FILE_NAME2)) File.Delete(FILE_NAME2);
         }
 
         [TestMethod]
@@ -35,7 +34,9 @@ namespace BearFoods.BL.Tests
             logo.Create(data);
 
             // Assert
-
+            WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open("BearFoods.BL.Logo.docx", false);
+            var textPath = wordprocessingDocument.MainDocumentPart.Document.Body.ChildElements[0].ChildElements[2].ChildElements[1].ChildElements[1].ChildElements[3].ChildElements[1].ChildElements[1].ChildElements[3];
+            Assert.AreEqual(BATCH_3, textPath.GetAttributes().Last().Value);            
         }       
     }
 }

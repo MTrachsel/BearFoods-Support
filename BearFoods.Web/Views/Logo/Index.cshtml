@@ -1,0 +1,29 @@
+﻿@model BearFoods.Web.Models.LogoModel
+
+@{
+    ViewData["Title"] = "Logos erstellen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Logos für Batch erstellen</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateLogo">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BatchNr" class="control-label"></label>
+                <input asp-for="BatchNr" class="form-control" />
+                <span asp-validation-for="BatchNr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Production" class="control-label"></label>
+                <input asp-for="Production" class="form-control" />
+                <span asp-validation-for="Production" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

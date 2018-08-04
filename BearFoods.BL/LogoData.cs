@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BearFoods.BL.Services
+namespace BearFoods.BL
 {
     public class LogoData
     {

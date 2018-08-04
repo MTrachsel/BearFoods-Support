@@ -1,27 +1,26 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
-using System.Xml.Linq;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
+using Novacode;
 
 namespace BearFoods.BL.Services
 {
     public class LogoService : ILogoService
     {
-        public void Create(LogoData data)
+        public DocX Create(LogoData data)
         {
             PopulateVorlageWithRechnungData(data);
+
+            return DocX.Load(Bearfoods.LogoInstancePath).Copy();
         }
 
         private static void PopulateVorlageWithRechnungData(LogoData data)
         {
             using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(Bearfoods.LogoPath))
             {
-                using (var file = new FileStream("BearFoods.BL.Logo.docx", FileMode.Create, FileAccess.ReadWrite))
+                using (var file = new FileStream(Bearfoods.LogoInstancePath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     resource.CopyTo(file);
                     resource.Close();
@@ -29,11 +28,10 @@ namespace BearFoods.BL.Services
                 }
             }
 
-            WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open("BearFoods.BL.Logo.docx", true);
+            WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open(Bearfoods.LogoInstancePath, true);
 
             wordprocessingDocument = ReplaceWordArt(data, wordprocessingDocument);
-
-            wordprocessingDocument.Close();
+            wordprocessingDocument.Close();         
         }
 
         private static WordprocessingDocument ReplaceWordArt(LogoData data, WordprocessingDocument wpd)
