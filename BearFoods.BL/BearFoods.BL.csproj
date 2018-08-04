@@ -14,7 +14,9 @@
     <EmbeddedResource Include="Vorlagen\Vorlage_Lieferschein.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vorlagen\Vorlage_Logo.docx" />
+    <EmbeddedResource Include="Vorlagen\Vorlage_Logo.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vorlagen\Vorlage_Rechnung.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
