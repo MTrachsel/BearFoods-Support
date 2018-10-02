@@ -49,13 +49,17 @@ namespace BearFoods.Web.Controllers
             data.EinzelpreisBBQ = config.Value.BBQPrice;
             data.TotalBBQ = data.EinzelpreisBBQ * data.MengeBBQ;
 
+            data.EinzelpreisBBQSmall = config.Value.BBQPriceSmall;
+            data.TotalBBQSmall = data.EinzelpreisBBQSmall * data.MengeBBQSmall;
+
             data.EinzelpreisPizza = config.Value.PizzaPrice;
             data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
 
             data.EinzelpreisJus = config.Value.JusPrice;
             data.TotalJus = data.EinzelpreisJus * data.MengeJus;
 
-            data.Total = data.TotalPizza + data.TotalPizza + data.TotalJus;
+            data.EinzelpreisJusSmall = config.Value.JusPriceSmall;
+            data.TotalJusSmall = data.EinzelpreisJusSmall * data.MengeJusSmall;            
         }
     }
 }

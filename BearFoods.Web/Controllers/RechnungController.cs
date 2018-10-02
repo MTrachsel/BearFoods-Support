@@ -50,8 +50,10 @@ namespace BearFoods.Web.Controllers
         {
 
             data.EinzelpreisBBQ = config.Value.BBQPrice;
+            data.EinzelpreisBBQSmall = config.Value.BBQPriceSmall;
             data.EinzelpreisPizza = config.Value.PizzaPrice;
             data.EinzelpreisJus = config.Value.JusPrice;
+            data.EinzelpreisJusSmall = config.Value.JusPriceSmall;
         }
 
         public IActionResult Error()

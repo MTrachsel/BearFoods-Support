@@ -12,7 +12,7 @@ namespace BearFoods.BL.Services
             data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
             data.TotalJus = data.EinzelpreisJus * data.MengeJus;
 
-            data.Total = data.TotalBBQ + data.TotalPizza + data.TotalJus;
+            data.Total = data.TotalPizza + data.TotalPizza + data.TotalJus + data.TotalBBQSmall + data.TotalJusSmall;
 
             return data;
         }
@@ -22,10 +22,12 @@ namespace BearFoods.BL.Services
             if (data == null) throw new ArgumentNullException(nameof(data));
 
             data.TotalBBQ = data.EinzelpreisBBQ * data.MengeBBQ;
+            data.TotalBBQSmall = data.EinzelpreisBBQSmall * data.MengeBBQSmall;
             data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
             data.TotalJus = data.EinzelpreisJus * data.MengeJus;
+            data.TotalJusSmall = data.EinzelpreisJusSmall * data.MengeJusSmall;
 
-            data.Total = data.TotalBBQ + data.TotalPizza + data.TotalJus;
+            data.Total = data.TotalBBQ + data.TotalPizza + data.TotalJus + data.TotalBBQSmall + data.TotalJusSmall;
             data.SubTotal = data.Total;
 
             return data;

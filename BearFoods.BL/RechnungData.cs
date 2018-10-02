@@ -28,13 +28,23 @@ namespace BearFoods.BL
         public int MengePizza { get; set; }
         [Display(Name = "Braten Sauce")]
         public int MengeJus { get; set; }
+        [Display(Name = "Bär-BQ Sauce klein")]
+        public int MengeBBQSmall { get; set; }
+        [Display(Name = "Braten Sauce klein")]
+        public int MengeJusSmall { get; set; }
         public decimal EinzelpreisBBQ { get; set; }
+        public decimal EinzelpreisBBQSmall { get; set; }
         public decimal EinzelpreisPizza { get; set; }
         public decimal EinzelpreisJus { get; set; }
+        public decimal EinzelpreisJusSmall { get; set; }
         public decimal TotalBBQ { get; set; }
         public decimal TotalPizza { get; set; }
         public decimal TotalJus { get; set; }
+        public decimal TotalJusSmall { get; set; }
+        public decimal TotalBBQSmall { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Total { get; set; }
+        
+        
     }
 }
