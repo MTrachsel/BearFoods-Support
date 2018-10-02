@@ -12,7 +12,7 @@ namespace BearFoods.BL.Services
             data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
             data.TotalJus = data.EinzelpreisJus * data.MengeJus;
 
-            data.Total = data.TotalPizza + data.TotalPizza + data.TotalJus + data.TotalBBQSmall + data.TotalJusSmall;
+            data.Total = data.TotalBBQ + data.TotalPizza + data.TotalJus + data.TotalBBQSmall + data.TotalJusSmall;
 
             return data;
         }
