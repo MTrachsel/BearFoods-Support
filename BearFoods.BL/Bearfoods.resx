@@ -121,7 +121,7 @@
     <value>Batch 2</value>
   </data>
   <data name="BBQ" xml:space="preserve">
-    <value>Bär-BQ</value>
+    <value>Bär-BQ Sauce</value>
   </data>
   <data name="ContentTypeWord" xml:space="preserve">
     <value>application/vnd.openxmlformats-officedocument.wordprocessingml.document</value>
@@ -130,7 +130,7 @@
     <value>23.07.2018</value>
   </data>
   <data name="Jus" xml:space="preserve">
-    <value>Braten</value>
+    <value>Braten Sauce</value>
   </data>
   <data name="LieferscheinPath" xml:space="preserve">
     <value>BearFoods.BL.Vorlagen.Vorlage_Lieferschein.docx</value>
@@ -139,12 +139,18 @@
     <value>BearFoods.BL.Vorlagen.Vorlage_Logo.docx</value>
   </data>
   <data name="Pizza" xml:space="preserve">
-    <value>Pizza</value>
+    <value>Pizza Sauce</value>
   </data>
   <data name="RechnungPath" xml:space="preserve">
     <value>BearFoods.BL.Vorlagen.Vorlage_Rechnung.docx</value>
   </data>
   <data name="LogoInstancePath" xml:space="preserve">
     <value>BearFoods.BL.Logo.docx</value>
+  </data>
+  <data name="BBQSmall" xml:space="preserve">
+    <value>Bär-BQ Sauce Klein</value>
+  </data>
+  <data name="JusSmall" xml:space="preserve">
+    <value>Braten Sauce Klein</value>
   </data>
 </root>

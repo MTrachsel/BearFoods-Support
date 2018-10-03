@@ -56,7 +56,9 @@ namespace BearFoods.BL.Tests
             Assert.IsNotNull(document);
             Assert.IsTrue(File.Exists(FILE_NAME));
             Assert.IsFalse(document.Tables.Any(x => x.Rows.Any(y => y.Cells.Any(p => p.Paragraphs.Any(t => t.Text.Contains(Bearfoods.Jus))))));
-            Assert.IsFalse(document.Tables.Any(x => x.Rows.Any(y => y.Cells.Any(p => p.Paragraphs.Any(t => t.Text.Contains(Bearfoods.Pizza))))));
+            Assert.IsFalse(document.Tables.Any(x => x.Rows.Any(y => y.Cells.Any(p => p.Paragraphs.Any(t => t.Text.Contains(Bearfoods.Pizza)))))); 
+            Assert.IsFalse(document.Tables.Any(x => x.Rows.Any(y => y.Cells.Any(p => p.Paragraphs.Any(t => t.Text.Contains(Bearfoods.JusSmall))))));
+            Assert.IsFalse(document.Tables.Any(x => x.Rows.Any(y => y.Cells.Any(p => p.Paragraphs.Any(t => t.Text.Contains(Bearfoods.BBQSmall))))));
             Assert.IsTrue(document.Tables.Any(x => x.Rows.Any(y => y.Cells.Any(p => p.Paragraphs.Any(t => t.Text.Contains(Bearfoods.BBQ))))));
         }
 

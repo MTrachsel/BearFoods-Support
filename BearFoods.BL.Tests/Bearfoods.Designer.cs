@@ -61,7 +61,7 @@ namespace BearFoods.BL.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bär-BQ.
+        ///   Looks up a localized string similar to Bär-BQ Sauce.
         /// </summary>
         internal static string BBQ {
             get {
@@ -70,7 +70,16 @@ namespace BearFoods.BL.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Braten.
+        ///   Looks up a localized string similar to Bär-BQ Sauce Klein.
+        /// </summary>
+        internal static string BBQSmall {
+            get {
+                return ResourceManager.GetString("BBQSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Braten Sauce.
         /// </summary>
         internal static string Jus {
             get {
@@ -79,7 +88,16 @@ namespace BearFoods.BL.Tests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pizza.
+        ///   Looks up a localized string similar to Braten Sauce Klein.
+        /// </summary>
+        internal static string JusSmall {
+            get {
+                return ResourceManager.GetString("JusSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pizza Sauce.
         /// </summary>
         internal static string Pizza {
             get {
