@@ -51,21 +51,21 @@ namespace BearFoods.BL.Services
             document.ReplaceText(nameof(data.LieferNr), data.LieferNr ?? string.Empty);
             document.ReplaceText(nameof(data.KundeNr), data.KundeNr ?? string.Empty);
             document.ReplaceText(nameof(data.LieferDatum), data.LieferDatum.ToShortDateString());
-            document.ReplaceText(nameof(data.MengeBBQ), data.MengeBBQ == 0 ? string.Empty : data.MengeBBQ.ToString());
             document.ReplaceText(nameof(data.MengeBBQSmall), data.MengeBBQSmall == 0 ? string.Empty : data.MengeBBQSmall.ToString());
+            document.ReplaceText(nameof(data.MengeBBQ), data.MengeBBQ == 0 ? string.Empty : data.MengeBBQ.ToString());            
             document.ReplaceText(nameof(data.MengePizza), data.MengePizza == 0 ? string.Empty : data.MengePizza.ToString());
-            document.ReplaceText(nameof(data.MengeJus), data.MengeJus == 0 ? string.Empty : data.MengeJus.ToString());
             document.ReplaceText(nameof(data.MengeJusSmall), data.MengeJusSmall == 0 ? string.Empty : data.MengeJusSmall.ToString());
-            document.ReplaceText(nameof(data.EinzelpreisBBQ), data.EinzelpreisBBQ == 0 ? string.Empty : data.EinzelpreisBBQ.ToString());
+            document.ReplaceText(nameof(data.MengeJus), data.MengeJus == 0 ? string.Empty : data.MengeJus.ToString());            
             document.ReplaceText(nameof(data.EinzelpreisBBQSmall), data.EinzelpreisBBQSmall == 0 ? string.Empty : data.EinzelpreisBBQSmall.ToString());
+            document.ReplaceText(nameof(data.EinzelpreisBBQ), data.EinzelpreisBBQ == 0 ? string.Empty : data.EinzelpreisBBQ.ToString());            
             document.ReplaceText(nameof(data.EinzelpreisPizza), data.EinzelpreisPizza == 0 ? string.Empty : data.EinzelpreisPizza.ToString());
-            document.ReplaceText(nameof(data.EinzelpreisJus), data.EinzelpreisJus == 0 ? string.Empty : data.EinzelpreisJus.ToString());
             document.ReplaceText(nameof(data.EinzelpreisJusSmall), data.EinzelpreisJusSmall == 0 ? string.Empty : data.EinzelpreisJusSmall.ToString());
-            document.ReplaceText(nameof(data.TotalBBQ), data.TotalBBQ == 0 ? string.Empty : data.TotalBBQ.ToString());
+            document.ReplaceText(nameof(data.EinzelpreisJus), data.EinzelpreisJus == 0 ? string.Empty : data.EinzelpreisJus.ToString());
             document.ReplaceText(nameof(data.TotalBBQSmall), data.TotalBBQSmall == 0 ? string.Empty : data.TotalBBQSmall.ToString());
+            document.ReplaceText(nameof(data.TotalBBQ), data.TotalBBQ == 0 ? string.Empty : data.TotalBBQ.ToString());            
             document.ReplaceText(nameof(data.TotalPizza), data.TotalPizza == 0 ? string.Empty : data.TotalPizza.ToString());
-            document.ReplaceText(nameof(data.TotalJus), data.TotalJus == 0 ? string.Empty : data.TotalJus.ToString());
             document.ReplaceText(nameof(data.TotalJusSmall), data.TotalJusSmall == 0 ? string.Empty : data.TotalJusSmall.ToString());
+            document.ReplaceText(nameof(data.TotalJus), data.TotalJus == 0 ? string.Empty : data.TotalJus.ToString());            
             document.ReplaceText(nameof(data.Total), data.Total == 0 ? string.Empty : data.Total.ToString());
 
             return document;
