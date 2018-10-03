@@ -29,12 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.FileProviders.Embedded">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.fileproviders.embedded\2.0.1\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Bearfoods.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
