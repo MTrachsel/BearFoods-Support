@@ -11,6 +11,7 @@ using BearFoods.BL;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace BearFoods.Web.Controllers
 {
@@ -45,6 +46,7 @@ namespace BearFoods.Web.Controllers
             if(model.BestehenderKunde != string.Empty) SetKundenInfo(data, model.BestehenderKunde);
 
             SetPrices(data);
+            SetRechnungsNr(data);
             data = CalculateService.CalulateRechnungTotals(data);
 
             DocX doc = RechnungService.Create(data);
@@ -61,13 +63,32 @@ namespace BearFoods.Web.Controllers
             return file;
         }
 
+        private void SetRechnungsNr(RechnungData data)
+        {
+            if (System.IO.File.Exists("counters.json"))
+            {
+                Counters counters;
+                using (StreamReader reader = new StreamReader("counters.json"))
+                {
+                    string jsonCounters = reader.ReadToEnd();
+                    counters = JsonConvert.DeserializeObject<Counters>(jsonCounters);
+                }
+
+                data.RechnungsNummer = counters.RechnungsNr.ToString();
+
+                counters.RechnungsNr += 1;
+
+                string jsonToBeWritten = JsonConvert.SerializeObject(counters);
+                System.IO.File.WriteAllText("counters.json", jsonToBeWritten);
+            }
+        }
+
         private void SetKundenInfo(RechnungData data, string bestehenderKunde)
         {
             Kunde kunde = kundenConfig.Value.Kunden.Find(x => x.Name == bestehenderKunde);
             data.Kunde = kunde.Name;
             data.AdressZeile1 = kunde.Adresse1;
             data.AdressZeile2 = kunde.Adresse2;
-            data.RechnungsNummer = kundenConfig.Value.RechnungsNr.ToString();
         }
 
         private void SetPrices(RechnungData data)

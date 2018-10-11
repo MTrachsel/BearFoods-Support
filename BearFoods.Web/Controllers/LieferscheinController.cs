@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using AutoMapper;
 using BearFoods.BL;
 using BearFoods.BL.Services;
@@ -8,6 +9,7 @@ using BearFoods.Web.Config;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Novacode;
 
 namespace BearFoods.Web.Controllers
@@ -15,7 +17,7 @@ namespace BearFoods.Web.Controllers
     public class LieferscheinController : Controller
     {
         private const string CONTENTTYPEWORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-        private string FILENAME = $"Lieferschein_{DateTime.Today.ToShortDateString()}.docx";
+        private readonly string FILENAME = $"Lieferschein_{DateTime.Today.ToShortDateString()}.docx";
         private readonly IOptions<PricesConfig> PricesConfig;
         private readonly IOptions<KundenConfig> KundenConfig;
         private readonly IMapper Mapper;
@@ -44,6 +46,7 @@ namespace BearFoods.Web.Controllers
             if (model.BestehenderKunde != string.Empty) SetKundenInfo(data, model.BestehenderKunde);
             
             SetPrices(data);
+            SetLieferscheinNr(data);
             data = CalculateService.CalulateLieferscheinTotals(data);
 
             DocX doc = LieferscheinService.Create(data);
@@ -60,6 +63,26 @@ namespace BearFoods.Web.Controllers
             return file;
         }
 
+        private void SetLieferscheinNr(LieferscheinData data)
+        {
+            if (System.IO.File.Exists("counters.json"))
+            {
+                Counters counters;
+                using (StreamReader reader = new StreamReader("counters.json"))
+                {
+                    string jsonCounters = reader.ReadToEnd();
+                    counters = JsonConvert.DeserializeObject<Counters>(jsonCounters);
+                }
+
+                data.LieferNr = counters.LieferscheinNr.ToString();
+
+                counters.LieferscheinNr += 1; 
+                
+                string jsonToBeWritten = JsonConvert.SerializeObject(counters);
+                System.IO.File.WriteAllText("counters.json", jsonToBeWritten);                              
+            }
+        }
+
         private void SetKundenInfo(LieferscheinData data, string bestehenderKunde)
         {
             Kunde kunde = KundenConfig.Value.Kunden.Find(x => x.Name == bestehenderKunde);
@@ -67,8 +90,6 @@ namespace BearFoods.Web.Controllers
             data.AdressZeile1 = kunde.Adresse1;
             data.AdressZeile2 = kunde.Adresse2;
             data.KundeNr = kunde.KundenNr;
-            data.LieferNr = KundenConfig.Value.LieferscheinNr.ToString();
-            KundenConfig.Value.LieferscheinNr++;
         }
 
         private void SetPrices(LieferscheinData data)
