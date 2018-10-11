@@ -39,7 +39,7 @@ namespace BearFoods.Web.Controllers
 
         public FileStreamResult CreateRechnung(RechnungViewModel model)
         {
-            string FILENAME = $"Rechnung_{model.RechnungsNummer}.docx";
+           
                        
             RechnungData data = Mapper.Map<RechnungData>(model);
 
@@ -54,6 +54,8 @@ namespace BearFoods.Web.Controllers
             MemoryStream ms = new MemoryStream();
             doc.SaveAs(ms);
             ms.Position = 0;
+
+            string FILENAME = $"Rechnung_{data.RechnungsNummer}.docx";
 
             var file = new FileStreamResult(ms, CONTENTTYPEWORD)
             {

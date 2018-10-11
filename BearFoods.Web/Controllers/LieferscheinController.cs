@@ -16,8 +16,7 @@ namespace BearFoods.Web.Controllers
 {
     public class LieferscheinController : Controller
     {
-        private const string CONTENTTYPEWORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-        private readonly string FILENAME = $"Lieferschein_{DateTime.Today.ToShortDateString()}.docx";
+        private const string CONTENTTYPEWORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";        
         private readonly IOptions<PricesConfig> PricesConfig;
         private readonly IOptions<KundenConfig> KundenConfig;
         private readonly IMapper Mapper;
@@ -54,6 +53,8 @@ namespace BearFoods.Web.Controllers
             MemoryStream ms = new MemoryStream();
             doc.SaveAs(ms);
             ms.Position = 0;
+
+            string FILENAME = $"Lieferschein_{data.LieferNr.ToString()}.docx";
 
             var file = new FileStreamResult(ms, CONTENTTYPEWORD)
             {
