@@ -14,7 +14,9 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="BestehenderKunde" class="control-label"></label>
-                <select asp-for="BestehenderKunde" asp-items="Model.Kunden" class="form-control"></select>
+                <select asp-for="BestehenderKunde" asp-items="Model.Kunden" class="form-control">
+                    <option disabled selected>--- Wählen ---</option>
+                </select>
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
