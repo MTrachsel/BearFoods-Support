@@ -19,13 +19,15 @@ namespace BearFoods.Web.Controllers
         private const string CONTENTTYPEWORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
         private readonly IOptions<PricesConfig> pricesConfig;
         private readonly IOptions<KundenConfig> kundenConfig;
+        private readonly IMapper Mapper;
         private IRechnungService RechnungService => new RechnungService();
         private ICalculateService CalculateService => new CalculateService();
         
-        public RechnungController(IOptions<PricesConfig> pricesConfiguration, IOptions<KundenConfig> kundenConfiguration)
+        public RechnungController(IOptions<PricesConfig> pricesConfiguration, IOptions<KundenConfig> kundenConfiguration, IMapper mapperService)
         {
             pricesConfig = pricesConfiguration;
             kundenConfig = kundenConfiguration;
+            Mapper = mapperService;
         }
 
         public IActionResult Index()
@@ -37,9 +39,10 @@ namespace BearFoods.Web.Controllers
         public FileStreamResult CreateRechnung(RechnungViewModel model)
         {
             string FILENAME = $"Rechnung_{model.RechnungsNummer}.docx";
-
-            Mapper.Initialize(cfg => cfg.CreateMap<RechnungViewModel, RechnungData>());
+                       
             RechnungData data = Mapper.Map<RechnungData>(model);
+
+            if(model.BestehenderKunde != string.Empty) SetKundenInfo(data, model.BestehenderKunde);
 
             SetPrices(data);
             data = CalculateService.CalulateRechnungTotals(data);
@@ -56,6 +59,15 @@ namespace BearFoods.Web.Controllers
             };
 
             return file;
+        }
+
+        private void SetKundenInfo(RechnungData data, string bestehenderKunde)
+        {
+            Kunde kunde = kundenConfig.Value.Kunden.Find(x => x.Name == bestehenderKunde);
+            data.Kunde = kunde.Name;
+            data.AdressZeile1 = kunde.Adresse1;
+            data.AdressZeile2 = kunde.Adresse2;
+            data.RechnungsNummer = kundenConfig.Value.RechnungsNr.ToString();
         }
 
         private void SetPrices(RechnungData data)

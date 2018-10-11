@@ -36,11 +36,6 @@ namespace BearFoods.Web
         [Display(Name = "Bär-BQ Sauce klein")]
         public int MengeBBQSmall { get; set; }
         [Display(Name = "Braten Sauce klein")]
-        public int MengeJusSmall { get; set; }
-        public decimal EinzelpreisBBQ { get; set; }
-        public decimal EinzelpreisBBQSmall { get; set; }
-        public decimal EinzelpreisPizza { get; set; }
-        public decimal EinzelpreisJus { get; set; }
-        public decimal EinzelpreisJusSmall { get; set; }
+        public int MengeJusSmall { get; set; }        
     }
 }

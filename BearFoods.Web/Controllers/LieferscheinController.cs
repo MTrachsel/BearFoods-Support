@@ -16,16 +16,18 @@ namespace BearFoods.Web.Controllers
     {
         private const string CONTENTTYPEWORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
         private string FILENAME = $"Lieferschein_{DateTime.Today.ToShortDateString()}.docx";
-        private readonly IOptions<PricesConfig> pricesConfig;
-        private readonly IOptions<KundenConfig> kundenConfig;
+        private readonly IOptions<PricesConfig> PricesConfig;
+        private readonly IOptions<KundenConfig> KundenConfig;
+        private readonly IMapper Mapper;
 
         private ILieferscheinService LieferscheinService => new LieferscheinService();
         private ICalculateService CalculateService => new CalculateService();
 
-        public LieferscheinController(IOptions<PricesConfig> pricesConfiguration, IOptions<KundenConfig> kundenConfiguration)
+        public LieferscheinController(IOptions<PricesConfig> pricesConfiguration, IOptions<KundenConfig> kundenConfiguration, IMapper mapperService)
         {
-            pricesConfig = pricesConfiguration;
-            kundenConfig = kundenConfiguration;
+            PricesConfig = pricesConfiguration;
+            KundenConfig = kundenConfiguration;
+            Mapper = mapperService;
         } 
 
         public ActionResult Index()
@@ -37,9 +39,10 @@ namespace BearFoods.Web.Controllers
 
         public FileStreamResult CreateLieferschein(LieferscheinViewModel model)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<LieferscheinViewModel, LieferscheinData>());
             LieferscheinData data = Mapper.Map<LieferscheinData>(model);
 
+            if (model.BestehenderKunde != string.Empty) SetKundenInfo(data, model.BestehenderKunde);
+            
             SetPrices(data);
             data = CalculateService.CalulateLieferscheinTotals(data);
 
@@ -57,22 +60,33 @@ namespace BearFoods.Web.Controllers
             return file;
         }
 
+        private void SetKundenInfo(LieferscheinData data, string bestehenderKunde)
+        {
+            Kunde kunde = KundenConfig.Value.Kunden.Find(x => x.Name == bestehenderKunde);
+            data.KundenName = kunde.Name;
+            data.AdressZeile1 = kunde.Adresse1;
+            data.AdressZeile2 = kunde.Adresse2;
+            data.KundeNr = kunde.KundenNr;
+            data.LieferNr = KundenConfig.Value.LieferscheinNr.ToString();
+            KundenConfig.Value.LieferscheinNr++;
+        }
+
         private void SetPrices(LieferscheinData data)
         {
             
-            data.EinzelpreisBBQ = pricesConfig.Value.BBQPrice;
+            data.EinzelpreisBBQ = PricesConfig.Value.BBQPrice;
             data.TotalBBQ = data.EinzelpreisBBQ * data.MengeBBQ;
 
-            data.EinzelpreisBBQSmall = pricesConfig.Value.BBQPriceSmall;
+            data.EinzelpreisBBQSmall = PricesConfig.Value.BBQPriceSmall;
             data.TotalBBQSmall = data.EinzelpreisBBQSmall * data.MengeBBQSmall;
 
-            data.EinzelpreisPizza = pricesConfig.Value.PizzaPrice;
+            data.EinzelpreisPizza = PricesConfig.Value.PizzaPrice;
             data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
 
-            data.EinzelpreisJus = pricesConfig.Value.JusPrice;
+            data.EinzelpreisJus = PricesConfig.Value.JusPrice;
             data.TotalJus = data.EinzelpreisJus * data.MengeJus;
 
-            data.EinzelpreisJusSmall = pricesConfig.Value.JusPriceSmall;
+            data.EinzelpreisJusSmall = PricesConfig.Value.JusPriceSmall;
             data.TotalJusSmall = data.EinzelpreisJusSmall * data.MengeJusSmall;            
         }
 
@@ -83,7 +97,7 @@ namespace BearFoods.Web.Controllers
                 Kunden = new List<SelectListItem>()
             };
 
-            foreach (Kunde kunde in kundenConfig.Value.Kunden)
+            foreach (Kunde kunde in KundenConfig.Value.Kunden)
             {
                 model.Kunden.Add(new SelectListItem
                 {

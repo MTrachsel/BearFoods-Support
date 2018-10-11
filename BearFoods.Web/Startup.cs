@@ -1,4 +1,6 @@
-﻿using BearFoods.Web.Config;
+﻿using AutoMapper;
+using BearFoods.BL;
+using BearFoods.Web.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +21,7 @@ namespace BearFoods.Web
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            _hostingEnvironment = env;
+            _hostingEnvironment = env;            
         }
 
         public Startup(IConfiguration configuration)
@@ -35,6 +37,7 @@ namespace BearFoods.Web
             services.AddMvc();
             var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
 
+            services.AddAutoMapper();
             services.AddOptions();
 
             services.Configure<PricesConfig>(Configuration.GetSection("PricesConfig"));
