@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using AutoMapper;
 using BearFoods.BL;
 using BearFoods.BL.Services;
 using BearFoods.Web.Config;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using Novacode;
 
@@ -13,20 +16,32 @@ namespace BearFoods.Web.Controllers
     {
         private const string CONTENTTYPEWORD = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
         private string FILENAME = $"Lieferschein_{DateTime.Today.ToShortDateString()}.docx";
-        private readonly IOptions<PricesConfig> config;
+        private readonly IOptions<PricesConfig> pricesConfig;
+        private readonly IOptions<KundenConfig> kundenConfig;
 
         private ILieferscheinService LieferscheinService => new LieferscheinService();
         private ICalculateService CalculateService => new CalculateService();
 
-        public LieferscheinController(IOptions<PricesConfig> configuration) => config = configuration;
+        public LieferscheinController(IOptions<PricesConfig> pricesConfiguration, IOptions<KundenConfig> kundenConfiguration)
+        {
+            pricesConfig = pricesConfiguration;
+            kundenConfig = kundenConfiguration;
+        } 
+
         public ActionResult Index()
         {
-            return View();
-        }
+            LieferscheinViewModel model = SetKundenListe();
 
-        public FileStreamResult CreateLieferschein(LieferscheinData data)
+            return View(model);
+        }        
+
+        public FileStreamResult CreateLieferschein(LieferscheinViewModel model)
         {
-            SetPrices(data);
+            SetPrices(model);
+
+            Mapper.Initialize(cfg => cfg.CreateMap<LieferscheinViewModel, LieferscheinData>());
+            LieferscheinData data = Mapper.Map<LieferscheinData>(model);
+
             data = CalculateService.CalulateLieferscheinTotals(data);
 
             DocX doc = LieferscheinService.Create(data);
@@ -43,23 +58,42 @@ namespace BearFoods.Web.Controllers
             return file;
         }
 
-        private void SetPrices(LieferscheinData data)
+        private void SetPrices(LieferscheinViewModel model)
         {
             
-            data.EinzelpreisBBQ = config.Value.BBQPrice;
-            data.TotalBBQ = data.EinzelpreisBBQ * data.MengeBBQ;
+            model.EinzelpreisBBQ = pricesConfig.Value.BBQPrice;
+            model.TotalBBQ = model.EinzelpreisBBQ * model.MengeBBQ;
 
-            data.EinzelpreisBBQSmall = config.Value.BBQPriceSmall;
-            data.TotalBBQSmall = data.EinzelpreisBBQSmall * data.MengeBBQSmall;
+            model.EinzelpreisBBQSmall = pricesConfig.Value.BBQPriceSmall;
+            model.TotalBBQSmall = model.EinzelpreisBBQSmall * model.MengeBBQSmall;
 
-            data.EinzelpreisPizza = config.Value.PizzaPrice;
-            data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
+            model.EinzelpreisPizza = pricesConfig.Value.PizzaPrice;
+            model.TotalPizza = model.EinzelpreisPizza * model.MengePizza;
 
-            data.EinzelpreisJus = config.Value.JusPrice;
-            data.TotalJus = data.EinzelpreisJus * data.MengeJus;
+            model.EinzelpreisJus = pricesConfig.Value.JusPrice;
+            model.TotalJus = model.EinzelpreisJus * model.MengeJus;
 
-            data.EinzelpreisJusSmall = config.Value.JusPriceSmall;
-            data.TotalJusSmall = data.EinzelpreisJusSmall * data.MengeJusSmall;            
+            model.EinzelpreisJusSmall = pricesConfig.Value.JusPriceSmall;
+            model.TotalJusSmall = model.EinzelpreisJusSmall * model.MengeJusSmall;            
+        }
+
+        private LieferscheinViewModel SetKundenListe()
+        {
+            LieferscheinViewModel model = new LieferscheinViewModel
+            {
+                Kunden = new List<SelectListItem>()
+            };
+
+            foreach (Kunde kunde in kundenConfig.Value.Kunden)
+            {
+                model.Kunden.Add(new SelectListItem
+                {
+                    Text = kunde.Name,
+                    Value = kunde.Name
+                });
+            }
+
+            return model;
         }
     }
 }

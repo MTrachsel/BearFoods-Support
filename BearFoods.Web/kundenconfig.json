@@ -1,0 +1,26 @@
+﻿{
+  "KundenConfig": {
+    "Kunden": {
+      "Metzgerei Siegfried": {
+        "Name": "Metzgerei Siegfried",
+        "Adresse1": "Bottigenstrasse 22",
+        "Adresse2": "3018 Bern",
+        "KundenNr": "20"
+      },
+      "Metzgerei Hulliger": {
+        "Name": "Metzgerei Hulliger",
+        "Adresse1": "Holzikofenweg 1",
+        "Adresse2": "3000 Bern",
+        "KundenNr": "25"
+      },
+      "Kauffmann AG Bern": {
+        "Name": "Metzgerei Traiteur Kauffmann",
+        "Adresse1": "Spitalgasse 34",
+        "Adresse2": "3011 Bern",
+        "KundenNr": "30"
+      }
+    },    
+    "RechnungsNr": 90,
+    "LieferscheinNr": 90
+  }  
+}

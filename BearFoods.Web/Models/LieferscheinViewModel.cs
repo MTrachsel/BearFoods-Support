@@ -1,12 +1,14 @@
-﻿using System;
+﻿using BearFoods.Web.Config;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BearFoods.BL
+namespace BearFoods.Web
 {
-    public class LieferscheinData
+    public class LieferscheinViewModel
     {
-        [Display(Name ="Kunden Name")]
+        [Display(Name = "Kunden Name")]
         public string KundenName { get; set; }
         [Display(Name = "Kunden Nr")]
         public string KundeNr { get; set; }
@@ -40,7 +42,7 @@ namespace BearFoods.BL
         public decimal TotalJus { get; set; }
         public decimal TotalJusSmall { get; set; }
         public decimal TotalBBQSmall { get; set; }
-        public decimal Total { get; set; }       
-        
+        public string BestehenderKunde { get; set; }
+        public List<SelectListItem> Kunden { get; set; }
     }
 }

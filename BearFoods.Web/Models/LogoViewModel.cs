@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BearFoods.Web.Models
 {
-    public class LogoModel
+    public class LogoViewModel
     {
         [Display(Name = "Batch Nr")]
         public int BatchNr { get; set; }

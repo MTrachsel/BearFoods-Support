@@ -18,7 +18,7 @@ namespace BearFoods.Web.Controllers
             return View();
         }
 
-        public FileStreamResult CreateLogo(LogoModel model)
+        public FileStreamResult CreateLogo(LogoViewModel model)
         {
             string FILENAME = $"Logo_{model.Production.ToShortDateString()}-BatchNr_{model.BatchNr}.docx";
 
@@ -38,7 +38,7 @@ namespace BearFoods.Web.Controllers
             return file;
         }
 
-        private static LogoData MapModelToData(LogoModel model)
+        private static LogoData MapModelToData(LogoViewModel model)
         {
             return new LogoData
             {

@@ -1,12 +1,13 @@
 ﻿namespace BearFoods.Web
 {
-    public class LieferscheinModel
+    public class RechnungViewModel
     {
-        public string KundeName { get; set; }
-        public string KundeNr { get; set; }
-        public string LieferNr { get; set; }
+        public string Kunde { get; set; }
         public string AdressZeile1 { get; set; }
         public string AdressZeile2 { get; set; }
+        public string Jahr { get; set; }
+        public string RechnungsNummer { get; set; }
+        public string RechnungsDatum { get; set; }
         public string LieferDatum { get; set; }
         public string MengeBBQ { get; set; }
         public string MengePizza { get; set; }
@@ -17,6 +18,7 @@
         public string TotalBBQ { get; set; }
         public string TotalPizza { get; set; }
         public string TotalJus { get; set; }
+        public string SubTotal { get; set; }
         public string Total{ get; set; }
     }
 }

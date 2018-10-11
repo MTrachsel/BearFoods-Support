@@ -15,6 +15,7 @@ namespace BearFoods.Web
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"kundenconfig.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
@@ -37,6 +38,7 @@ namespace BearFoods.Web
             services.AddOptions();
 
             services.Configure<PricesConfig>(Configuration.GetSection("PricesConfig"));
+            services.Configure<KundenConfig>(Configuration.GetSection("KundenConfig"));
 
             services.AddSingleton(physicalProvider);
         }
