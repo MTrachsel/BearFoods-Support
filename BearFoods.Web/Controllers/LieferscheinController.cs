@@ -37,11 +37,10 @@ namespace BearFoods.Web.Controllers
 
         public FileStreamResult CreateLieferschein(LieferscheinViewModel model)
         {
-            SetPrices(model);
-
             Mapper.Initialize(cfg => cfg.CreateMap<LieferscheinViewModel, LieferscheinData>());
             LieferscheinData data = Mapper.Map<LieferscheinData>(model);
 
+            SetPrices(data);
             data = CalculateService.CalulateLieferscheinTotals(data);
 
             DocX doc = LieferscheinService.Create(data);
@@ -58,23 +57,23 @@ namespace BearFoods.Web.Controllers
             return file;
         }
 
-        private void SetPrices(LieferscheinViewModel model)
+        private void SetPrices(LieferscheinData data)
         {
             
-            model.EinzelpreisBBQ = pricesConfig.Value.BBQPrice;
-            model.TotalBBQ = model.EinzelpreisBBQ * model.MengeBBQ;
+            data.EinzelpreisBBQ = pricesConfig.Value.BBQPrice;
+            data.TotalBBQ = data.EinzelpreisBBQ * data.MengeBBQ;
 
-            model.EinzelpreisBBQSmall = pricesConfig.Value.BBQPriceSmall;
-            model.TotalBBQSmall = model.EinzelpreisBBQSmall * model.MengeBBQSmall;
+            data.EinzelpreisBBQSmall = pricesConfig.Value.BBQPriceSmall;
+            data.TotalBBQSmall = data.EinzelpreisBBQSmall * data.MengeBBQSmall;
 
-            model.EinzelpreisPizza = pricesConfig.Value.PizzaPrice;
-            model.TotalPizza = model.EinzelpreisPizza * model.MengePizza;
+            data.EinzelpreisPizza = pricesConfig.Value.PizzaPrice;
+            data.TotalPizza = data.EinzelpreisPizza * data.MengePizza;
 
-            model.EinzelpreisJus = pricesConfig.Value.JusPrice;
-            model.TotalJus = model.EinzelpreisJus * model.MengeJus;
+            data.EinzelpreisJus = pricesConfig.Value.JusPrice;
+            data.TotalJus = data.EinzelpreisJus * data.MengeJus;
 
-            model.EinzelpreisJusSmall = pricesConfig.Value.JusPriceSmall;
-            model.TotalJusSmall = model.EinzelpreisJusSmall * model.MengeJusSmall;            
+            data.EinzelpreisJusSmall = pricesConfig.Value.JusPriceSmall;
+            data.TotalJusSmall = data.EinzelpreisJusSmall * data.MengeJusSmall;            
         }
 
         private LieferscheinViewModel SetKundenListe()
