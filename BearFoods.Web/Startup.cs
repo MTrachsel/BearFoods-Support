@@ -34,12 +34,17 @@ namespace BearFoods.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddLocalization();
+            services.AddAutoMapper();
+            services.AddMvc()
+                    .AddViewLocalization()
+                    .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options => options.DefaultRequestCulture = new RequestCulture("de-CH", "de-CH"));
+
             var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
 
-            services.AddAutoMapper();
             services.AddOptions();
-
             services.Configure<PricesConfig>(Configuration.GetSection("PricesConfig"));
             services.Configure<KundenConfig>(Configuration.GetSection("KundenConfig"));
 
