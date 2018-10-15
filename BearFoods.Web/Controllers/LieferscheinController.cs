@@ -42,7 +42,7 @@ namespace BearFoods.Web.Controllers
         {
             LieferscheinData data = Mapper.Map<LieferscheinData>(model);
 
-            if (model.BestehenderKunde != string.Empty) SetKundenInfo(data, model.BestehenderKunde);
+            if (model.BestehenderKunde != null) SetKundenInfo(data, model.BestehenderKunde);
             
             SetPrices(data);
             SetLieferscheinNr(data);

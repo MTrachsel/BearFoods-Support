@@ -43,7 +43,7 @@ namespace BearFoods.Web.Controllers
                        
             RechnungData data = Mapper.Map<RechnungData>(model);
 
-            if(model.BestehenderKunde != string.Empty) SetKundenInfo(data, model.BestehenderKunde);
+            if(model.BestehenderKunde != null) SetKundenInfo(data, model.BestehenderKunde);
 
             SetPrices(data);
             SetRechnungsNr(data);

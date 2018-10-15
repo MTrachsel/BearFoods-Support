@@ -3,6 +3,7 @@ using BearFoods.BL;
 using BearFoods.Web.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,19 +37,18 @@ namespace BearFoods.Web
         {
             services.AddLocalization();
             services.AddAutoMapper();
+
             services.AddMvc()
                     .AddViewLocalization()
                     .AddDataAnnotationsLocalization();
 
             services.Configure<RequestLocalizationOptions>(options => options.DefaultRequestCulture = new RequestCulture("de-CH", "de-CH"));
 
-            var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
+            services.AddSingleton(_hostingEnvironment.ContentRootFileProvider);
 
             services.AddOptions();
             services.Configure<PricesConfig>(Configuration.GetSection("PricesConfig"));
-            services.Configure<KundenConfig>(Configuration.GetSection("KundenConfig"));
-
-            services.AddSingleton(physicalProvider);
+            services.Configure<KundenConfig>(Configuration.GetSection("KundenConfig"));            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
