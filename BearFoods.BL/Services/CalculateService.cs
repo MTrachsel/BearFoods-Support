@@ -19,6 +19,7 @@ namespace BearFoods.BL.Services
 
         public RechnungData CalulateRechnungTotals(RechnungData data)
         {
+            const int DELIVERY_COST = 4;
             if (data == null) throw new ArgumentNullException(nameof(data));
 
             data.TotalBBQ = data.EinzelpreisBBQ * data.MengeBBQ;
@@ -27,8 +28,8 @@ namespace BearFoods.BL.Services
             data.TotalJus = data.EinzelpreisJus * data.MengeJus;
             data.TotalJusSmall = data.EinzelpreisJusSmall * data.MengeJusSmall;
 
-            data.Total = data.TotalBBQ + data.TotalPizza + data.TotalJus + data.TotalBBQSmall + data.TotalJusSmall;
-            data.SubTotal = data.Total;
+            data.Total = data.TotalBBQ + data.TotalPizza + data.TotalJus + data.TotalBBQSmall + data.TotalJusSmall + DELIVERY_COST;
+            data.SubTotal = data.Total - DELIVERY_COST;
 
             return data;
         }
